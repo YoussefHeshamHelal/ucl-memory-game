@@ -93,6 +93,19 @@ body {
     color: #0b1d3a;
 }
 
+.tries-messages {
+    color: #ff4d4d;         
+    font-size: 22px;         
+    font-weight: bold;       
+    text-align: center;
+    margin: 6px 0;
+}
+
+.tries-messages span {
+    font-size: 26px;         
+    margin-left: 5px;
+}
+
 @media screen and (max-width: 600px) {
     .header h1 {
         font-size: 20px;

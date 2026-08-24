@@ -2,6 +2,7 @@ var card_1 = null;
 var card_2 = null;   
 var lock = false;
 var score = 0;
+var tries = 0;
 var len = 16;
 
 const cards = document.querySelectorAll('.game-card'); 
@@ -43,13 +44,14 @@ cards.forEach(card => {
                     card_1 = null;
                     card_2 = null;
                     lock = false;
+                    wrongTries();
                 }, 500);
             }
         }    
     });  
 });
 
-// Restart game  
+// Restart game   
 const restart = document.querySelector('.restart-btn');
 restart.addEventListener('click', restartGame);
 
@@ -58,11 +60,13 @@ function restartGame() {
     card_1 = null;
     card_2 = null;
     score = 0;
+    tries = 0;
 
     cards.forEach(card => {
         card.classList.remove("flip");
     });
 
+    wrongT.textContent = tries;
     setTimeout(() => {
         shuffle(len);
         lock = false;
@@ -76,6 +80,12 @@ function showWins() {
             restartGame();
         }
     }, 1000);
+}
+
+const wrongT = document.querySelector('.tries-messages span');
+function wrongTries() {
+    tries++;
+    wrongT.textContent = tries; 
 }
 
 // Shuffle cards
