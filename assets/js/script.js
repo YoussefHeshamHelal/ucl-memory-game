@@ -71,7 +71,7 @@ function restartGame() {
 
 function showWins() {
     setTimeout(() => { 
-        var win = confirm("You won the game! Do you want to restart?");
+        var win = confirm("You won!");
         if (win) {
             restartGame();
         }
