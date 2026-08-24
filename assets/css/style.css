@@ -93,17 +93,46 @@ body {
     color: #0b1d3a;
 }
 
+.game-stats {
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
 .tries-messages {
     color: #ff4d4d;         
-    font-size: 22px;         
+    font-size: 20px;         
     font-weight: bold;       
-    text-align: center;
-    margin: 6px 0;
 }
 
 .tries-messages span {
-    font-size: 26px;         
+    font-size: 24px;         
     margin-left: 5px;
+}
+
+.timer-message {
+    color: #ffd700; 
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.timer-message span {
+    font-size: 24px;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .game-stats {
+        width: 90vw;
+    }
+    .tries-messages, .timer-message {
+        font-size: 16px;
+    }
+    .tries-messages span, .timer-message span {
+        font-size: 18px;
+    }
 }
 
 @media screen and (max-width: 600px) {

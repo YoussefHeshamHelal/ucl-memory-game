@@ -5,16 +5,23 @@ var score = 0;
 var tries = 0;
 var len = 16;
 
+var timeLeft = 60;
+var timerInterval = null;
+var gameStarted = false;
+
 const cards = document.querySelectorAll('.game-card'); 
+const timerDisplay = document.getElementById('timer');
 
 cards.forEach(card => {
     card.addEventListener('click', () => {
-        if (card.classList.contains('flip')) {  
+        if (card.classList.contains('flip') || lock) {  
             return;
         }
-        if (lock) {
-            return;
-        }   
+
+        if (!gameStarted) {
+            startTimer();
+            gameStarted = true;
+        }
         
         card.classList.add('flip');
 
@@ -35,6 +42,7 @@ cards.forEach(card => {
                 card_2 = null;
                 score++;
                 if (score === len / 2) {
+                    clearInterval(timerInterval); 
                     showWins();
                 }
             } else {
@@ -51,11 +59,36 @@ cards.forEach(card => {
     });  
 });
 
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        
+        var seconds = timeLeft < 10 ? "0" + timeLeft : timeLeft;
+        timerDisplay.textContent = `00:${seconds}`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            lock = true; 
+            setTimeout(() => {
+                var lose = confirm("Time is up! You lost. Do you want to try again?");
+                if (lose) {
+                    restartGame();
+                }
+            }, 300);
+        }
+    }, 1000);
+}
+
 // Restart game   
 const restart = document.querySelector('.restart-btn');
 restart.addEventListener('click', restartGame);
 
 function restartGame() {
+    clearInterval(timerInterval);
+    timeLeft = 60;
+    gameStarted = false;
+    timerDisplay.textContent = "01:00";
+
     lock = true;
     card_1 = null;
     card_2 = null;
@@ -96,5 +129,4 @@ function shuffle(length = 16) {
     });
 }
 
-// Initial Shuffle on Load
 shuffle();
